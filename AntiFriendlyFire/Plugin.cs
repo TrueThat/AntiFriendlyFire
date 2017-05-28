@@ -54,12 +54,14 @@ namespace AntiFriendlyFire
             if (pKiller.CSteamID == pVictim.CSteamID)
             {
                 //they're damaging themselves
+                //fokin emos
                 Logger.Logger.Log("[AFF] The player (" + pVictim.DisplayName + ") has died by his own hand!");
                 return;
             }
             if (cause == EDeathCause.BLEEDING)
             {
                 //they're bleeding. we dont need to pay attention
+                //they've cut their wrists RIP
                 Logger.Logger.Log("[AFF] The player (" + pVictim.DisplayName + ") has bled out!");
                 return;
             }
@@ -69,8 +71,16 @@ namespace AntiFriendlyFire
                 {
                     if (r.Id == r2.Id)
                     {
-                        player.life.askHeal(damage, true, true);
-                        Logger.Logger.Log("[AFF] Healed (" + pVictim.DisplayName + ") With (" + damage + ") HP!");
+                        if (damage > 99)
+                        {
+                            player.life.askHeal(100, true, true);
+                            Logger.Logger.Log("[AFF] Healed (" + pVictim.DisplayName + ") With ( Full 100 ) HP!");
+                        }
+                        else
+                        {
+                            player.life.askHeal(damage, true, true);
+                            Logger.Logger.Log("[AFF] Healed (" + pVictim.DisplayName + ") With (" + damage + ") HP!");
+                        }
                     }
                 }
             }
