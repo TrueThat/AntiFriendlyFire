@@ -10,6 +10,7 @@ using Steamworks;
 using Rocket.API.Serialisation;
 using Rocket.Unturned;
 using Logger = Rocket.Core.Logging;
+using System.Threading;
 
 namespace AntiFriendlyFire
 {
@@ -19,6 +20,9 @@ namespace AntiFriendlyFire
 
         protected override void Load()
         {
+            Instance = this;
+            Logger.Logger.Log("[AFF] Loading!");
+
             if (!Configuration.Instance.Enabled)
             {
                 Logger.Logger.Log("[AFF] Plugin is disabled in the config! Unloading . . .");
@@ -73,8 +77,12 @@ namespace AntiFriendlyFire
                     {
                         if (damage > 99)
                         {
+                            //godmode method
+                            pVictim.Features.GodMode = true;
                             player.life.askHeal(100, true, true);
-                            Logger.Logger.Log("[AFF] Healed (" + pVictim.DisplayName + ") With ( Full 100 ) HP!");
+                            Logger.Logger.Log("[AFF] The player (" + pVictim.DisplayName + ") Was given protection for ");
+                            Thread.Sleep(Configuration.Instance.GodModeWait);
+                            pVictim.Features.GodMode = false;
                         }
                         else
                         {
