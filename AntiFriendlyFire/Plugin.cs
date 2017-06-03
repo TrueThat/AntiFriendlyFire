@@ -48,6 +48,9 @@ namespace AntiFriendlyFire
         {
             UnturnedPlayer pKiller = UnturnedPlayer.FromCSteamID(killer);
             UnturnedPlayer pVictim = UnturnedPlayer.FromPlayer(player);
+
+            int GodWaitDelay = Configuration.Instance.GodModeWait / 1000;
+
             if (killer == null)
             {
                 //they didnt die by another player
@@ -80,7 +83,7 @@ namespace AntiFriendlyFire
                             //godmode method
                             pVictim.Features.GodMode = true;
                             player.life.askHeal(100, true, true);
-                            Logger.Logger.Log("[AFF] The player (" + pVictim.DisplayName + ") Was given protection for ");
+                            Logger.Logger.Log("[AFF] The player (" + pVictim.DisplayName + ") Was given protection for " + GodWaitDelay + " seconds!");
                             Thread.Sleep(Configuration.Instance.GodModeWait);
                             pVictim.Features.GodMode = false;
                         }
